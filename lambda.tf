@@ -52,6 +52,6 @@ resource "aws_cloudwatch_log_group" "lg_a" {
 }
 
 resource "aws_cloudwatch_log_group" "lg_b" {
-  name              = "/aws/lambda/${aws_lambda_function.lambda_b.function_name}"
+  name              = "/aws/lambda/${aws_lambda_function.OneVisionDataCollectorFunction.function_name}"
   retention_in_days = 30
 }
