@@ -11,9 +11,9 @@ data "archive_file" "lambda_b_zip" {
   output_path = "${path.module}/src/lambda_b.zip"
 }
 
-resource "aws_lambda_function" "lambda_a" {
-  function_name = "${var.project_name}-lambda-a"
-  role          = aws_iam_role.lambda_a_role.arn
+resource "aws_lambda_function" "OneVisionDataCleanerFunction" {
+  function_name = "${var.project_name}-one-vision-data-cleaner"
+  role          = aws_iam_role.OneVisionDataCleanerRole.arn
   handler       = "lambda_a.lambda_handler"
   runtime       = var.lambda_runtime
   filename      = data.archive_file.lambda_a_zip.output_path
@@ -28,9 +28,9 @@ resource "aws_lambda_function" "lambda_a" {
   }
 }
 
-resource "aws_lambda_function" "lambda_b" {
-  function_name = "${var.project_name}-lambda-b"
-  role          = aws_iam_role.lambda_b_role.arn
+resource "aws_lambda_function" "OneVisionDataCollectorFunction" {
+  function_name = "${var.project_name}-one-vision-data-collector"
+  role          = aws_iam_role.OneVisionDataCollectorRole.arn
   handler       = "lambda_b.lambda_handler"
   runtime       = var.lambda_runtime
   filename      = data.archive_file.lambda_b_zip.output_path
@@ -47,7 +47,7 @@ resource "aws_lambda_function" "lambda_b" {
 
 # (Opcional) Log Groups explícitos com retenção
 resource "aws_cloudwatch_log_group" "lg_a" {
-  name              = "/aws/lambda/${aws_lambda_function.lambda_a.function_name}"
+  name              = "/aws/lambda/${aws_lambda_function.OneVisionDataCleanerFunction.function_name}"
   retention_in_days = 30
 }
 
