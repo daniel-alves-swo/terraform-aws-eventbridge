@@ -9,7 +9,7 @@ data "aws_iam_policy_document" "assume_lambda" {
 }
 
 resource "aws_iam_role" "OneVisionDataCleanerRole" {
-  name               = "${var.project_name}-one-vision-data-cleaner-role"
+  name               = "OneVisionDataCleanerRole"
   assume_role_policy = data.aws_iam_policy_document.assume_lambda.json
 }
 
@@ -19,7 +19,7 @@ resource "aws_iam_role_policy_attachment" "OneVisionDataCleanerPolicy" {
 }
 
 resource "aws_iam_role" "OneVisionDataCollectorRole" {
-  name               = "${var.project_name}-one-vision-data-collector-role"
+  name               = "OneVisionDataCollectorRole"
   assume_role_policy = data.aws_iam_policy_document.assume_lambda.json
 }
 

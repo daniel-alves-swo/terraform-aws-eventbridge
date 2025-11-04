@@ -3,13 +3,13 @@
 # 09:00 BRT = 12:00 UTC → cron(0 12 * * ? *)
 
 resource "aws_cloudwatch_event_rule" "OneVisionDataCleanerSchedule" {
-  name                = "${var.project_name}-one-vision-data-cleaner"
+  name                = "OneVisionDataCleanerSchedule"
   description         = "Dispara Lambda A diariamente às 11:30 UTC (08:30 BRT)"
   schedule_expression = "cron(30 11 * * ? *)"
 }
 
 resource "aws_cloudwatch_event_rule" "OneVisionDataCollectorSchedule" {
-  name                = "${var.project_name}-one-vision-data-collector"
+  name                = "OneVisionDataCollectorSchedule"
   description         = "Dispara Lambda B diariamente às 12:00 UTC (09:00 BRT)"
   schedule_expression = "cron(0 12 * * ? *)"
 }

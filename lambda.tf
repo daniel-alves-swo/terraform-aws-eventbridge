@@ -12,7 +12,7 @@ data "archive_file" "lambda_b_zip" {
 }
 
 resource "aws_lambda_function" "OneVisionDataCleanerFunction" {
-  function_name = "${var.project_name}-one-vision-data-cleaner"
+  function_name = "OneVisionDataCleanerFunction"
   role          = aws_iam_role.OneVisionDataCleanerRole.arn
   handler       = "lambda_a.lambda_handler"
   runtime       = var.lambda_runtime
@@ -29,7 +29,7 @@ resource "aws_lambda_function" "OneVisionDataCleanerFunction" {
 }
 
 resource "aws_lambda_function" "OneVisionDataCollectorFunction" {
-  function_name = "${var.project_name}-one-vision-data-collector"
+  function_name = "OneVisionDataCollectorFunction"
   role          = aws_iam_role.OneVisionDataCollectorRole.arn
   handler       = "lambda_b.lambda_handler"
   runtime       = var.lambda_runtime
