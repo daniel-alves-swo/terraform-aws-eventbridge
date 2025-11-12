@@ -1,23 +1,23 @@
 # Empacota os códigos Python em zips
-data "archive_file" "lambda_a_zip" {
+data "archive_file" "data_cleaner_zip" {
   type        = "zip"
-  source_file = "${path.module}/src/lambda_a.py"
-  output_path = "${path.module}/src/lambda_a.zip"
+  source_file = "${path.module}/lambda/OneVisionDataCleaner/index.py"
+  output_path = "${path.module}/lambda/OneVisionDataCleaner/index.zip"
 }
 
-data "archive_file" "lambda_b_zip" {
+data "archive_file" "data_collector_zip" {
   type        = "zip"
-  source_file = "${path.module}/src/lambda_b.py"
-  output_path = "${path.module}/src/lambda_b.zip"
+  source_file = "${path.module}/lambda/OneVisionDataCollector/index.py"
+  output_path = "${path.module}/lambda/OneVisionDataCollector/index.zip"
 }
 
 resource "aws_lambda_function" "OneVisionDataCleanerFunction" {
   function_name = "OneVisionDataCleanerFunction"
   role          = aws_iam_role.OneVisionDataCleanerRole.arn
-  handler       = "lambda_a.lambda_handler"
+  handler       = "index.lambda_handler"
   runtime       = var.lambda_runtime
-  filename      = data.archive_file.lambda_a_zip.output_path
-  source_code_hash = data.archive_file.lambda_a_zip.output_base64sha256
+  filename      = data.archive_file.data_cleaner_zip.output_path
+  source_code_hash = data.archive_file.data_cleaner_zip.output_base64sha256
   memory_size   = var.lambda_memory_mb
   timeout       = var.lambda_timeout_seconds
   publish       = true
@@ -32,10 +32,10 @@ resource "aws_lambda_function" "OneVisionDataCleanerFunction" {
 resource "aws_lambda_function" "OneVisionDataCollectorFunction" {
   function_name = "OneVisionDataCollectorFunction"
   role          = aws_iam_role.OneVisionDataCollectorRole.arn
-  handler       = "lambda_b.lambda_handler"
+  handler       = "data_collector.lambda_handler"
   runtime       = var.lambda_runtime
-  filename      = data.archive_file.lambda_b_zip.output_path
-  source_code_hash = data.archive_file.lambda_b_zip.output_base64sha256
+  filename      = data.archive_file.data_collector_zip.output_path
+  source_code_hash = data.archive_file.data_collector_zip.output_base64sha256
   memory_size   = var.lambda_memory_mb
   timeout       = var.lambda_timeout_seconds
   publish       = true
