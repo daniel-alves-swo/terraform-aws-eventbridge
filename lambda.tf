@@ -17,6 +17,7 @@ resource "aws_lambda_function" "OneVisionDataCleanerFunction" {
   handler       = "lambda_a.lambda_handler"
   runtime       = var.lambda_runtime
   filename      = data.archive_file.lambda_a_zip.output_path
+  source_code_hash = data.archive_file.lambda_a_zip.output_base64sha256
   memory_size   = var.lambda_memory_mb
   timeout       = var.lambda_timeout_seconds
   publish       = true
@@ -34,6 +35,7 @@ resource "aws_lambda_function" "OneVisionDataCollectorFunction" {
   handler       = "lambda_b.lambda_handler"
   runtime       = var.lambda_runtime
   filename      = data.archive_file.lambda_b_zip.output_path
+  source_code_hash = data.archive_file.lambda_b_zip.output_base64sha256
   memory_size   = var.lambda_memory_mb
   timeout       = var.lambda_timeout_seconds
   publish       = true
